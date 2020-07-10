@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        div counter: {{counter}}
+        <p>p counter: {{counter}}</p>
+        <p>p name1: {{name1}}</p>
+        <p>p name2: {{name2}}</p>
+        <p b-text='counter'></p>
+        <p b-html='desc'></p>
+        <input b-model='age' type="text" />
+        <p>{{arr}}</p>
+        <p>{{arr[0]}}</p>
+    </div>
+    <script src="bvue.js"></script>
+    <script>
+        const vm = new BVue({
+            el: '#app',
+            data: {
+                counter: 0,
+                name1: 'name1',
+                name2: 'name2',
+                age: '1',
+                obj: {oo: 1, ob: 2},
+                arr: [1,'a', {bb: 1, cc: 2}],
+                desc: '<span style="color:red;">desc something</span>'
+            }
+        })
+        // setInterval(()=>{
+        //     vm.counter++
+        // }, 1000)
+    </script>
+</body>
+
+</html>
