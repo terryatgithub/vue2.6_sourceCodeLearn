@@ -149,6 +149,7 @@ export function defineReactive (
   shallow?: boolean
 ) {
   // 大管家，和key 1：1
+  //每个key有个闭包管家
   const dep = new Dep()
 
   const property = Object.getOwnPropertyDescriptor(obj, key)
@@ -164,6 +165,7 @@ export function defineReactive (
   }
 
   // 递归，如果val是对象，则获得一个子Observer实例
+  //如果key的值是对象，每个对象有个闭包的小管家，用来管理将来添加的属性或
   let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,
