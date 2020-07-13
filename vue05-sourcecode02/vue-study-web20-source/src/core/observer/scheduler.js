@@ -189,6 +189,7 @@ export function queueWatcher (watcher: Watcher) {
         return
       }
       // 异步执行flushSchedulerQueue
+      //async exec flushScheulerQueue
       nextTick(flushSchedulerQueue)
     }
   }
