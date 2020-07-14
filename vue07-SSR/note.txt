@@ -1,0 +1,105 @@
+暗号：mua
+
+通过在浏览器执行‘查看源代码‘，区别服务端渲染和客户端渲染‘
+
+1. SEO搜索不到 ，因为服务端返回的是vue模板，没有填充内容 
+2. 首屏加载速度，因为请求次数比较多。
+
+返回到客户端后，显示首屏，客户端由Vue激活
+
+vue
+vue-server-render  版本号必须一致
+
+
+SSR
+每次服务端修改代码后，都需要重新npm run build，否则客户端请求的是旧版本缓存。
+
+用工厂函数，确保每次请求返回一个Router实例，一定不能是单利，必须是多实例。
+
+宿主文件的修改	/public/index.html
+1. 删掉之前的动态webpack标签
+2. 宿主元素从div#app变成一个注释 <!--vue-ssr-ourlet-->
+
+Q. renderToString得到的字符串无法交互
+	
+Q：服务端是express在管理路由，想要在客户端管理路由，怎么办
+	由vue-router管理，而不是express
+	服务端app.get('*', fn)
+Q： 状态管理怎么办
+	store
+Q：同构开发问题
+	依然使用webpack打包，要解决2个问题
+	1. 服务端首屏渲染的入口是：entry-server.js 	server bundle来做
+		entry-server和渲染器打交道
+		要创建vue实例，
+		需要考虑获取数据等异步情况，所以需要return new Promise
+		
+
+	2. 客户端激活	client bundle来做
+		在客户端创建一个vue实例即可激活
+
+同构开发要求：
+createBundleRenderer 打包渲染器
+
+静态服务 
+app.use(express.static())  //开放dist/目录，关闭index默认打开功能
+
+<link rel="preload" as="script" />
+prefetch 
+
+跨域问题：
+首页渲染时没有跨域，但后面页面就是spa了，会涉及到跨域
+只有首页是SSR，其他页面都跟普通的SPA完全一样。
+
+部署时一般是在nginx配代理
+
+
+绝对地址的好处：node执行时对目录可以无要求，如果是静态会对执行目录有要求。
+
+数据预期：
+服务端首屏渲染的入口是：entry-server.js 
+找到和首屏相关的所有组件，包含有asyncData的，就执行
+router.getMatchedComponents()返回匹配路由的所有相关组件
+
+输入存入store，只需要序列化它，传到前端在复原，
+设置到上下文中的state，renderer将来会转换它在客户端
+context.state = store.state 
+	
+客户端数据还原store.state：
+会被反序列化到以下全局变量：
+renderer会把它放到window.__INITIAL_STATE__字段里
+store.replaceState(window.__INTIAL_STATE__)方法即可。
+一旦还原，前端状态和服务端状态就同步了。
+
+客户端可能也要处理asyncData()
+客户端数据预取处理：
+Vue.mixin({beforeMount(){
+	
+}}
+客户端和服务端都有的钩子：beforeCreate/Created
+剩下钩子都只有客户端会执行；
+
+Q：样式怎么办
+
+
+发布和部署
+静态文件由nginx处理
+其他由node服务器
+
+谈谈你对SSR的理解和使用场景
+特点：
+优缺点
+	复杂度
+	性能
+		缓存 node server nginx
+		降级 cpu 内存spa
+场景：
+	seo 首屏 必要性 pre-renderer(预渲染，提前把需要的文件打包成html：预渲染插件）
+	移动端：对首屏要求高
+	已存在项目：改造难度大，考虑爬虫工具 puppeteer 判断请求是否是爬虫（区分处理搜索引擎爬虫和真实用户）
+	全新项目：nuxt.js（用nuxt.js做个项目，然后看源码）
+
+
+
+
+
