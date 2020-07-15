@@ -100,6 +100,11 @@ Q：样式怎么办
 	全新项目：nuxt.js（用nuxt.js做个项目，然后看源码）
 
 
+Vue SSR服务器端主要流程
+1. 创建vue实例
+2. 创建渲染器实例 Renderer
+3. 把vue实例转换为HTML字符串，返回给客户端
+4. 客户端收到HTML字符串（及序列化的store后），通过new一个Vue实例来激活返回的HTML字符串，完成客户端SPA的功能。
 
 
 
