@@ -1,0 +1,21 @@
+{
+  "name": "vuets",
+  "version": "1.0.0",
+  "description": "1. 安装ts\r npm i -g typescript\r 2. 生成配置文件 tsconfig.json\r tsc --init\r 3. 生成package.json\r npm init -y",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config ./build/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "html-webpack-plugin": "^4.3.0",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

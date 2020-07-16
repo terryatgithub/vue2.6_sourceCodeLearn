@@ -1,14 +1,14 @@
-暗号：mua
+ 通过在浏览器执行‘查看源代码‘，区别服务端渲染和客户端渲染‘
 
-通过在浏览器执行‘查看源代码‘，区别服务端渲染和客户端渲染‘
-
+# SPA优缺点：
 1. SEO搜索不到 ，因为服务端返回的是vue模板，没有填充内容 
 2. 首屏加载速度，因为请求次数比较多。
 
+# Vue SSR原理
 返回到客户端后，显示首屏，客户端由Vue激活
 
-vue
-vue-server-render  版本号必须一致
+# Vue SSR实战
+vue vue-server-render  版本号必须一致
 
 
 SSR
@@ -54,14 +54,14 @@ prefetch
 部署时一般是在nginx配代理
 
 
-绝对地址的好处：node执行时对目录可以无要求，如果是静态会对执行目录有要求。
+绝对地址的好处：node执行时对目录可以无要求，如果是相对地址，会对执行目录有要求。
 
 数据预期：
 服务端首屏渲染的入口是：entry-server.js 
 找到和首屏相关的所有组件，包含有asyncData的，就执行
 router.getMatchedComponents()返回匹配路由的所有相关组件
 
-输入存入store，只需要序列化它，传到前端在复原，
+数据存入store，只需要序列化它，传到前端在复原，
 设置到上下文中的state，renderer将来会转换它在客户端
 context.state = store.state 
 	
