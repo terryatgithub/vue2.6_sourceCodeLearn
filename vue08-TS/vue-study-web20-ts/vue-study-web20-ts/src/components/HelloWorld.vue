@@ -17,14 +17,15 @@
 
 <script lang="ts">
 // class-style组件
-import { Prop, Vue, Emit } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 // import axios from 'axios'
 
-function Component(options) {
-  return function(target: any) {
-    return Vue.extend(options) as any
-  }
-}
+// //装饰器工厂
+// function Component(options: object) {
+//   return function(target: any) {
+//     return Vue.extend(options) as any
+//   }
+// }
 
 type Feature = {
   id: number;
