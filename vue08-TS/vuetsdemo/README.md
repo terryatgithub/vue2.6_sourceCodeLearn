@@ -1,4 +1,4 @@
-# vuetstest
+# vuetsdemo
 
 ## Project setup
 ```
