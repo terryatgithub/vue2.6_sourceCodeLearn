@@ -26,5 +26,6 @@ Vue.prototype.$create = create
 new Vue({
   router,
   store,
+  myOption: 'haha,自定义options',
   render: h => h(App)
 }).$mount('#app')

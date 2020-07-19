@@ -1,11 +1,15 @@
 <template>
   <div>
-    <input type="text" @keyup.enter="submitPhone" placeholder="请输入9位手机号码" /><br/>
-    <input type="text" @keyup.enter="submitName" placeholder="请输入英文姓名" />
     <p>{{msg}}</p>
     <div>
       <input type="text" placeholder="输入新特性" @keyup.enter="addFeature" />
     </div>
+    <div>
+      tips:
+      <br />
+      <input type="text" v-model="tips" />
+    </div>
+    <button @click="changeTips">复位tips</button>
     <ul>
       <li
         v-for="feature in features"
@@ -18,53 +22,43 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit, Watch } from "vue-property-decorator";
 import { FeatureSelect } from "../types";
 
-function validatePhone(value: string) { //手机号校验
-  const re = /\d{9}/
-  return re.test(value)
-}
-function validateName(value: string) { //姓名校验
-  const re = /^\w+/i
-  return re.test(value)
-}
-//暗号： you can you up
-//方法装饰器，校验用户输入格式是否正确
-function validate(cb:(val:string)=>boolean) {
-  return function(target: any, key: string, descriptor: PropertyDescriptor) {
-    const fn = descriptor.value; //保存原方法
-    descriptor.value = function(e: KeyboardEvent) {
-      const inp = e.target as HTMLInputElement;
-      console.log('validate: ' + inp.value);
-      const ret = cb(inp.value)
-      if(ret) {
-        window.alert('输入ok')
-        fn.call(this, e);
-      } else {
-        window.alert('请输入正确格式')
-      }
-    };
+function rec(target: any, key: string, descriptor: PropertyDescriptor) {
+  const fn = descriptor.value;
+  console.log(target);
+  
+  descriptor.value = function(val: string) {
+    console.log(target);
+    console.log(key);
+    console.log(descriptor);
+    fn.call(this, val)
   };
 }
+
 @Component
 export default class Hello extends Vue {
-  @validate(validatePhone)
-  submitPhone(e: KeyboardEvent) {
-    const inp = e.target as HTMLInputElement;
-    console.log('submit phone: ' + inp.value);
+  @Prop() //Prop()参数是为Vue提供属性选项
+  private msg!: string; //!是明确赋值断言，是提供给ts编译器的
+
+  public tips = "this is some tips";
+  @Watch("tips")
+  onMsgChanged(val: string, oldVal: any) {
+    console.log("msg changed: " + val);
   }
-  @validate(validateName)
-  submitName(e: KeyboardEvent) {
-    const inp = e.target as HTMLInputElement;
-    console.log('submit name: ' + inp.value);
+
+  changeTips() {
+    this.tips = "intial tips..";
   }
-  @Prop() private msg!: string;
+
   features: FeatureSelect[] = [
     { id: 1, name: "类型注解", selected: true },
     { id: 2, name: "编译型语言", selected: false }
   ];
 
+  @rec
+  @Emit()
   addFeature(e: KeyboardEvent) {
     //e.target 是EventTarget类型，需要断言为HTMLInputElement
     const inp = e.target as HTMLInputElement;
@@ -75,6 +69,8 @@ export default class Hello extends Vue {
     };
     this.features.push(feature);
     inp.value = "";
+    return feature;
+    // this.$emit('add-feature', feature)
   }
 
   //利用getter设置计算属性

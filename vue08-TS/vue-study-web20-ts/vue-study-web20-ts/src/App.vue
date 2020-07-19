@@ -22,7 +22,6 @@ import cm from '@/store/counter'
 export default class App extends Vue {
   addFeature(feature: FeatureSelect) {
     console.log(feature.name);
-    
   }
 
   get counter() {
@@ -31,6 +30,13 @@ export default class App extends Vue {
 
   add() {
     cm.add()
+  }
+
+  created() {
+    console.log(Vue.$myGlobal);
+    console.log(this.$options.myOption);
+    
+    
   }
 }
 </script>

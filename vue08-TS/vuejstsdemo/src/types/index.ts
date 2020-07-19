@@ -1,4 +1,4 @@
-export type Feature1 = {
+type Feature1 = {
     id: number,
     name: string
 }
