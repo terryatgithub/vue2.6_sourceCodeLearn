@@ -18,7 +18,7 @@ webpack merge库，看下语法
 使用webpack提供require.context()方法指定svg为固定上下文
 const req = require.context('./svg', false, /\.svg$/)
 // keys()返回上下文中所有文件名
-req.keys().map(req) //req是个函数，回头看下
+req.keys().map(req) //req是个函数
 
 2. svgIcon组件化
 
