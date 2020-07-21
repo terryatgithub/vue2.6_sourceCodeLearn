@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import HelloWorld from "comps/HelloWorld.vue";
+// import HelloWorld from "comps/HelloWorld.vue";
 
 console.log(process.env.foo);
 console.log(process.env.VUE_APP_BAZ);
@@ -15,7 +16,7 @@ console.log(process.env.VUE_APP_BAZ);
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // HelloWorld
   }
 }
 </script>

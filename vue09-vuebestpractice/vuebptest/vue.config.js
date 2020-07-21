@@ -23,6 +23,8 @@ module.exports = {
     //2. 用函数 直接操作config 或返回一个对象
     configureWebpack: config => {
         config.resolve.alias.comps = resolve('./src/components')
+        config.resolve.alias.views = resolve('./src/views')
+        config.resolve.alias.util = resolve('./src/util')
         config.name = 'vue bp yuanbo'
     },
     //chainWebpack 可以更细粒度地控制webpack内部配置
