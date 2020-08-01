@@ -17,6 +17,8 @@ Vue.component('blog-post', {
   template: '<h3>{{title}}</h3>'
 })
 
+Vue.prototype.$bus = new Vue()
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')

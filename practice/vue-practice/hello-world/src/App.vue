@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <Nav>
+      your profile
+    </Nav>
+    <img ref="logo" alt="Vue logo" src="./assets/logo.png">
     <alert-box>{{error}}</alert-box>
     <ul>
       <li><button @click="changeComp(1)">alert</button></li>
@@ -10,6 +13,8 @@
     <component :is="selectedComp"></component>
     <Demo />
     <!-- <Blog /> -->
+    <button @click="changeGrandpa">$ref修改grandpa标题</button>
+    <Grandpa ref='gp' />
     <Parent />
     searchText: {{searchText }}<br>
     <custom-input v-model="searchText"></custom-input>
@@ -22,18 +27,28 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Demo from '@/components/Demo.vue';
+import Grandpa from '@/components/Grandpa.vue'
 import Parent from '@/components/Parent.vue'
 import CustomInput from '@/components/CustomInput.vue'
 import AlertBox from '@/components/Alert.vue'
+import Nav from '@/components/slot/Nav.vue'
 
 export default {
   name: 'App',
   components: {
+    Nav,
     HelloWorld,
     Demo,
+    Grandpa,
     Parent,
     CustomInput,
     AlertBox
+  },
+  provide() {
+    return {
+      fooProvide: 'foo by provide',
+      barProvide: 1111
+    }
   },
   data() {
     return {
@@ -52,7 +67,10 @@ export default {
         case 3: comp = CustomInput; break;
       }
       this.selectedComp = comp
-    }
+    },
+     changeGrandpa() {
+          this.$refs.gp.msg = 'grandpa changed by $ref.gp.msg'
+      }
   },
 }
 </script>
