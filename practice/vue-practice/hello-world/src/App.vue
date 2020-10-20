@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <Nav>
-      your profile
-    </Nav>
+    <SlotIndex />
+    <DialogApp />
+    <FormApp />
+    <hr />
     <img ref="logo" alt="Vue logo" src="./assets/logo.png">
     <alert-box>{{error}}</alert-box>
     <ul>
@@ -31,12 +32,16 @@ import Grandpa from '@/components/Grandpa.vue'
 import Parent from '@/components/Parent.vue'
 import CustomInput from '@/components/CustomInput.vue'
 import AlertBox from '@/components/Alert.vue'
-import Nav from '@/components/slot/Nav.vue'
+import SlotIndex from '@/components/slot'
+import FormApp from '@/elementtest/index.vue'
+import DialogApp from '@/elementtest/Dialog/index.vue'
 
 export default {
   name: 'App',
   components: {
-    Nav,
+    DialogApp,
+    FormApp,
+    SlotIndex,
     HelloWorld,
     Demo,
     Grandpa,

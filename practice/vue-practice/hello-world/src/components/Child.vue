@@ -2,7 +2,7 @@
     <div class="child">
         <h1>Child1</h1>
         <ul>
-            <li v-for="(item, index) in $attrs" :key="item">$attrs {{ index }}:{{item}}</li>
+            <li v-for="(item, index) in $attrs" :key="index">$attrs {{ index }}:{{item}}</li>
         </ul>
         <h2><button @click="$emit('enlarge-text', 0.2)">+</button>{{ msg }}</h2>
         <button @click="onClick">emit event to child2 by $bus</button>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kvue</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{counter}}</p>
+      <p k-text="counter" k-on:click="onclick2"></p>
+      <p k-html="desc" @click="onclick"></p>
+      <input type="text" k-model="desc" />
+    </div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="kvue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          counter: 1,
+          desc: 'kvue<span style="color:red">真棒</span>',
+        },
+        methods: {
+          onclick() {
+            //this必须是组件实例，怎么确保？
+            //做回调时要小心处理这块
+            console.log("onclick: ", this.desc);
+            app.counter++;
+          },
+          onclick2() {
+            console.log("onclick2: ", this.desc);
+            app.counter++;
+          },
+        },
+      });
+      //   setInterval(() => {
+      // app.counter++;
+      //   }, 5000);
+    </script>
+  </body>
+</html>

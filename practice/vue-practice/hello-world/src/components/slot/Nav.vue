@@ -1,21 +1,17 @@
 <template>
-    <a :href="url" class="nav" :title="url">
-        <slot></slot>
-    </a>
+  <a :href="url" class="nav" :title="url">
+    <slot></slot>
+  </a>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                url: '#/profile'
-            }
-        },
-    }
+export default {
+  props: ['url']
+};
 </script>
 
 <style scoped>
-.nav:hover{
-    background: yellow;
+.nav:hover {
+  background: yellow;
 }
 </style>

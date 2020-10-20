@@ -2,7 +2,7 @@
   <div class="child">
     {{msg}}
     <ul>
-      <li v-for="(item, index) in $attrs" :key="item">$attrs {{ index }}:{{item}}</li>
+      <li v-for="(item, index) in $attrs" :key="index">$attrs {{ index }}:{{item}}</li>
     </ul>
     <button @click="$emit('pa')">触发pa</button>
     <p>foo by provide/inject: {{foo}}</p>

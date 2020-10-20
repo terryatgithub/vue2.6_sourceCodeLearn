@@ -151,6 +151,7 @@ export function createComponent (
   resolveConstructorOptions(Ctor)
 
   // transform component v-model data into props & events
+  // 
   if (isDef(data.model)) {
     transformModel(Ctor.options, data)
   }
@@ -165,6 +166,7 @@ export function createComponent (
 
   // extract listeners, since these needs to be treated as
   // child component listeners instead of DOM listeners
+  // 事件监听处理
   const listeners = data.on
   // replace with listeners with .native modifier
   // so it gets processed during parent component patch.
@@ -248,9 +250,12 @@ function mergeHook (f1: any, f2: any): Function {
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
 function transformModel (options, data: any) {
+  // 如果用户有自定义属性名称或事件名称则使用他们
+  // 否则使用默认的value/input
   const prop = (options.model && options.model.prop) || 'value'
   const event = (options.model && options.model.event) || 'input'
   ;(data.attrs || (data.attrs = {}))[prop] = data.model.value
+  // 以下处理同时有这2个的情况： v-model="foo" @input="onInput"
   const on = data.on || (data.on = {})
   const existing = on[event]
   const callback = data.model.callback

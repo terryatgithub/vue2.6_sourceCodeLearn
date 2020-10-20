@@ -343,6 +343,7 @@ export function callHook (vm: Component, hook: string) {
       invokeWithErrorHandling(handlers[i], vm, null, vm, info)
     }
   }
+  // 如果标记了钩子事件，则额外派发一个自定义事件出去
   if (vm._hasHookEvent) {
     vm.$emit('hook:' + hook)
   }
